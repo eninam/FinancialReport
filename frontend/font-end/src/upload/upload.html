@@ -1,0 +1,18 @@
+<h2>Upload Your Bank Statements</h2>
+
+<div class="upload-files">
+  <input id="icon" type="file" (change)="onFileSelected($event)" multiple accept=".pdf" />
+  <label for="icon" class="choose-file">
+    <span class="material-icons">folder</span>
+    Click here to upload!
+  </label>
+
+  <div *ngIf="selectAddedFiles$ | async as files" class="uploaded-files">
+    <ul>
+      <li *ngFor="let file of files">{{ file.name }}</li>
+    </ul>
+  </div>
+  <div class="upload-button">
+    <button (click)="uploadFiles()" [disabled]="selectedFiles.length === 0">Upload All</button>
+  </div>
+</div>
