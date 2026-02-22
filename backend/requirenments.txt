@@ -1,0 +1,25 @@
+fastapi
+uvicorn
+python-multipart # allows fastapi to receive pdfs from the client
+pydantic # data validation
+pdfplumber # Extracts text and tables from PDFs locally.
+
+
+User uploads PDF
+      ↓
+python-multipart parses request
+      ↓
+FastAPI receives UploadFile
+      ↓
+pdfplumber extracts text (locally)
+      ↓
+pydantic validates parsed data
+      ↓
+Rules + analysis generate insights
+      ↓
+Only insights returned / stored
+
+
+
+# to do 
+# update the front end for 
