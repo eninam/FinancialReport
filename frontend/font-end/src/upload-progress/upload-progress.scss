@@ -1,0 +1,42 @@
+h2 {
+  text-align: center;
+  margin-top: 2%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 100px;
+  text-decoration: overline underline;
+}
+h3 {
+  text-align: center;
+  margin-bottom: 3%;
+  font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+h4 {
+  text-align: center;
+  font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+hr {
+  opacity: 1;
+
+  border: none; /* Removes the default border */
+  width: 90%;
+  margin: 0 auto;
+  border: dashed #8a7650;
+}
+#delimiter {
+  border: 2px solid #682d2d;
+}
+.category {
+  margin-left: 5%;
+  font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  display: flex;
+  justify-content: space-between; /* Spreads them out */
+  gap: 70px; /* Optional: adds space between columns */
+  span {
+    flex: 1;
+    margin-bottom: 1%;
+  }
+}
+.titles {
+  font-style: italic;
+  margin-bottom: 0%;
+}

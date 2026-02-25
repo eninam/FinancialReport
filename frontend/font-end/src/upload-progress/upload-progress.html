@@ -1,60 +1,96 @@
-<div *ngIf="error$ | async as error" class="error">
+<!-- <div *ngIf="error$ | async as error" class="error">
   <p>Error: {{ error }}</p>
-</div>
+</div> -->
 
-<div *ngIf="job$ | async as job">
+<h2>The Financial Report</h2>
+
+<!-- <div *ngIf="job$ | async as job">
   <p>Job ID: {{ job.job_id }}</p>
   <p>Status: {{ job.status }}</p>
-</div>
-
+</div> -->
+<!-- 
 <div *ngIf="progress$ | async as progress">
   <p>Progress: {{ progress }}%</p>
   <div class="progress-bar">
     <div class="progress-fill" [style.width.%]="progress"></div>
   </div>
-</div>
+</div> -->
 
-<div *ngIf="step$ | async as step">
+<!-- <div *ngIf="step$ | async as step">
   <p>Step: {{ step }}</p>
-</div>
+</div> -->
 
 <div *ngIf="results$ | async as results">
-  <h3>Analysis Results:</h3>
+  <!-- <h3>Analysis Results:</h3> -->
 
-  <p>Average Monthly Income: {{ results.average_monthly_income }}</p>
-
+  <!-- <p>Average Monthly Income: {{ results.average_monthly_income }}</p> -->
+  <h3>Average Monthly Income: <span>$</span>{{ results.average_monthly_income }}</h3>
+  <h4>Categories</h4>
+  <div class="category titles">
+    <span>Category</span>
+    <span>Spent</span>
+    <span>Recommended</span>
+    <span>Status</span>
+  </div>
+  <hr id="delimiter" />
   <div *ngIf="results.categories">
-    <h4>Categories:</h4>
     <div class="category" *ngFor="let cat of results.categories | keyvalue">
-      <div class="category-name">{{ cat.key }}</div>
-      <div class="value">
+      <span class="category-name">{{ cat.key }}</span>
+      <span class="spent">${{ cat.value.spent }} ({{ cat.value.percentage_of_income }}%)</span>
+      <span class="recommended">
+        {{ cat.value.suggested_range?.min }} - {{ cat.value.suggested_range?.max }}%
+      </span>
+      <span class="status"> {{ cat.value.status }}</span>
+      <!-- <div class="value">
         "delta_to_range" -- {{ cat.value.delta_to_range }} "percentage_of_income" --
         {{ cat.value.percentage_of_income }} "spent" -- {{ cat.value.spent }} "status" --
         {{ cat.value.status }}
         suggested_range -- min: {{ cat.value.suggested_range.min }} , max:
         {{ cat.value.suggested_range.max }}
-      </div>
+      </div> -->
+      <!-- <hr /> -->
     </div>
   </div>
 
   <div *ngIf="results.alerts.length">
-    <h4>Alerts:</h4>
-
+    <h4>Alerts</h4>
+    <div class="category titles">
+      <span>Category</span>
+      <span>Message</span>
+      <span>over_by</span>
+    </div>
+    <hr id="delimiter" />
     <div *ngFor="let alert of results.alerts">
-      <div class="value">
-        alert.category: {{ alert.category }}, lert.message: {{ alert.message }}, alert.over_by:
-        {{ alert.over_by }}
+      <div class="category">
+        <!-- alert.category: {{ alert.category }}, lert.message: {{ alert.message }}, alert.over_by:
+        {{ alert.over_by }} -->
+        <span class="status">{{ alert.category }}</span>
+        <span class="status">{{ alert.message }}</span>
+        <span class="status">{{ alert.over_by }}</span>
       </div>
     </div>
   </div>
 
   <div *ngIf="results.savings_suggestions.length">
-    <h4>Savings Suggestions:</h4>
+    <h4>Savings Suggestions</h4>
+    <div class="category titles">
+      <span>Category</span>
+      <span>Message</span>
+      <span>Action</span>
+      <span>Status</span>
+    </div>
+    <hr id="delimiter" />
 
     <div *ngFor="let suggest of results.savings_suggestions">
-      <div class="value">
-        suggest.category: {{ suggest.category }}, suggest.message: {{ suggest.message }},
-        suggest.action: {{ suggest.action }} ; amount {{ suggest.amount }}
+      <div class="category">
+        <span class="status">{{ suggest.category }}</span>
+        <span class="status">{{ suggest.message }}</span>
+
+        <span class="status">{{ suggest.action }}</span>
+        <span class="status">{{ suggest.amount }}</span>
+
+        <!-- suggest.category: {{ suggest.category }}, suggest.message: {{ suggest.message }},
+        suggest.action: {{ suggest.action }} ; amount {{ suggest.amount }} -->
       </div>
     </div>
   </div>
