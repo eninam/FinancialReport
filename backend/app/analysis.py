@@ -3,7 +3,7 @@ from rules import categorize, SUGGESTED_PERCENTAGES
 
 def analyze_spending(statements: list):
     incomes = [s["income"] for s in statements if s["income"]] # return a list of incomes from each file [2,3,6]
-    avg_income = sum(incomes) / len(incomes)
+    avg_income = round(sum(incomes) / len(incomes),2)
 
     category_totals = defaultdict(float)
 

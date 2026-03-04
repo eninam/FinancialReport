@@ -37,8 +37,7 @@ async def upload_pdfs(
     background_tasks: BackgroundTasks,
     files: List[UploadFile] = File(...)
 ):
-    print("files")
-    print(files)
+
     if not (MIN_PDFS <= len(files) <= MAX_PDFS):
         raise HTTPException(400, "Upload between 2 and 12 PDFs")
 
@@ -51,13 +50,9 @@ async def upload_pdfs(
             "errors": [],
             "result": None
         }
-
+    # processes files after returning a received response
     background_tasks.add_task(process_job, job_id, files)
-    print("UploadResponse sent to fe" , UploadResponse(  
-        job_id=job_id,
-        total_files=len(files),
-        status="processing"
-    ))
+
     return UploadResponse(  
         job_id=job_id,
         total_files=len(files),

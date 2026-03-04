@@ -19,7 +19,12 @@ Rules + analysis generate insights
       ↓
 Only insights returned / stored
 
+To do
 
-
-# to do 
-# update the front end for 
+# deploy backend to web
+# deploy front end to web
+# add a database layer for categorization 
+# add a database layer parsed statements data
+# add a database layer analysis of statement data
+# allow the user to input their own suggested percentage categories on front end
+# add ai for statement analysis 

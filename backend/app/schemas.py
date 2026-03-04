@@ -10,7 +10,7 @@ class JobStatus(BaseModel):
     total_pdfs: int
     step: str
     errors: List[str] = []
-    result: AnalysisResult
+    result: AnalysisResult | None
 
 class CategorySummary(BaseModel):
     spent: float

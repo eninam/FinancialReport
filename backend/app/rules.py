@@ -1,13 +1,5 @@
 import re
 
-
-# CATEGORY_MAP = {
-#     "STARBUCKS": "Coffee/Food",
-#     "UBER": "Transport",
-#     "NETFLIX": "Entertainment",
-#     "AMAZON": "Shopping",
-# }
-
 CATEGORY_RULES = [
     # --- Transportation ---
     ("Transportation", [
@@ -97,17 +89,18 @@ CATEGORY_RULES = [
 
 
 SUGGESTED_PERCENTAGES = {
-    "Housing": (25,30),
-    "Savings": (10,20),
-    "Food": (10,15),
-    "Transportation": (10,15),
-    "Insurance": (10,25),
-    "Utilities": (5,10),
-    "Medical": (5,10),
-    "Personal/Recreation": (5,10),
-    "Giving": (1,10),
-    "Dining":(1,10),
-    "Other":(1,10)
+    "Transportation": (10, 15),
+    "Dining": (5, 10),
+    "Groceries": (8, 15),
+    "Shopping": (5, 15),
+    "Subscriptions": (1, 5),
+    "Health": (5, 10),
+    "P2P Transfers": (0, 10),
+    "Savings": (10, 20),
+    "Investments": (5, 20),
+    "Debt Payments": (5, 20),
+    "Rounding Transfers": (0, 5),
+    "Checks": (0, 10),
 }
 
 
