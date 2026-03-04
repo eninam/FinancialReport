@@ -20,7 +20,8 @@ Rules + analysis generate insights
 Only insights returned / stored
 
 To do
-
+python3  -m uvicorn main:app --reload
+npm start   
 # deploy backend to web
 # deploy front end to web
 # add a database layer for categorization 
