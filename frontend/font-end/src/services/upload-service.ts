@@ -6,9 +6,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UploadService {
-  uploadUrl = 'http://localhost:8000/upload';
-  private jobUrl = 'http://localhost:8000/status'; // endpoint to poll job status
-
+  uploadUrl = 'https://financialreport.onrender.com/upload';
+  private jobUrl = 'https://financialreport.onrender.com/status'; // endpoint to poll job status
+  // uploadUrl = 'http://localhost:8000/upload';
+  // private jobUrl = 'http://localhost:8000/status'; // endpoint to poll job status
   constructor(private http: HttpClient) {}
 
   startUpload(files: FormData): Observable<any> {
