@@ -18,6 +18,7 @@ app = FastAPI()
 # Allow requests from Angular dev server
 origins = [
     "http://localhost:4200",
+    "https://financial-report-eta.vercel.app/"
     # add other allowed origins if needed
 ]
 

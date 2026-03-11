@@ -2,23 +2,23 @@
 
 ## Backend
 
+    User uploads PDF
+            ↓
+    python-multipart parses request
+            ↓
+    FastAPI receives UploadFile
+            ↓
+    pdfplumber extracts text (locally)
+            ↓
+    pydantic validates parsed data
+            ↓
+    Rules + analysis generate insights
+            ↓
+    Only insights returned / stored
+
 ## Front End
 
 ## Todo
-
-User uploads PDF
-↓
-python-multipart parses request
-↓
-FastAPI receives UploadFile
-↓
-pdfplumber extracts text (locally)
-↓
-pydantic validates parsed data
-↓
-Rules + analysis generate insights
-↓
-Only insights returned / stored
 
     python3  -m uvicorn main:app --reload
     npm start
