@@ -2,7 +2,7 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "dist/font-end",
-  "routes": [
+  "rewrites": [
     {
       "source": "/(.*)",
       "dest": "/src/index.html"
