@@ -18,9 +18,12 @@
 
 ## Front End
 
+npm run start
+
 ## Todo
 
     python3  -m uvicorn main:app --reload
+    python3 -m pip install packageName
     npm start
     deploy backend to web
     deploy front end to web

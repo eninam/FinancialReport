@@ -1,92 +1,15 @@
 import re
+from pymongo import MongoClient
+import constants
+import certifi
+from mangoDB.load_categories import get_rules, MERCHANT_RULES
+from LLM.unknown_merchant_cat import ai_classify
 
-CATEGORY_RULES = [
-    # --- Transportation ---
-    ("Transportation", [
-        r"MTA\*NYCT",
-        r"UBER",
-        r"LYFT",
-    ]),
 
-    # --- Dining ---
-    ("Dining", [
-        r"MCDONALD",
-        r"SHAKE SHACK",
-        r"POKE BOWL",
-        r"PIZZA",
-        r"BAKERY",
-        r"CAFE",
-        r"SQ \*",
-        r"TST\*",
-        r"RESTAURANT",
-        r"BRULEE",
-        r"HEYTEA",
-        r"PANINERIA",
-        r"LADUREE",
-        r"XI'AN",
-        r"ORWASHERS",
-        r"CHEF TAN",
-    ]),
 
-    # --- Groceries ---
-    ("Groceries", [
-        r"KEY FOOD",
-        r"H MART",
-        r"CVS",
-    ]),
-
-    # --- Shopping / Retail ---
-    ("Shopping", [
-        r"TARGET",
-        r"TESO MINI",
-        r"SUNRISE GIFT",
-    ]),
-
-    # --- Entertainment / Subscriptions ---
-    ("Subscriptions", [
-        r"SPOTIFY",
-    ]),
-
-    # --- Health ---
-    ("Health", [
-        r"USLIFE INSURANCE",
-        r"PHARMACY",
-    ]),
-
-    # --- Peer-to-peer ---
-    ("P2P Transfers", [
-        r"VENMO",
-        r"ZELLE",
-    ]),
-
-    # --- Savings ---
-    ("Savings", [
-        r"TRANSFER TO SAV",
-        r"SAV",
-    ]),
-
-    # --- Investments ---
-    ("Investments", [
-        r"VANGUARD",
-    ]),
-
-    # --- Debt / Credit Cards ---
-    ("Debt Payments", [
-        r"PAYMENT TO CRD",
-    ]),
-
-    # --- Internal bank programs ---
-    ("Rounding Transfers", [
-        r"KEEP THE CHANGE",
-    ]),
-
-    # --- Checks ---
-    ("Checks", [
-        r"CHECK",
-        r"Check number",
-    ]),
-]
-
+client = MongoClient(constants.MONGO_URI,tlsCAFile=certifi.where())
+db = client[constants.DATABASE]
+merchant_collection = db[constants.CAT_COLLECTION]
 
 SUGGESTED_PERCENTAGES = {
     "Transportation": (10, 15),
@@ -116,9 +39,33 @@ def normalize_description(transaction: dict) -> str:
 def categorize(transaction: dict) -> str:
     desc = normalize_description(transaction)
 
-    for category, patterns in CATEGORY_RULES:
-        for pattern in patterns:
-            if re.search(pattern, desc):
-                return category
+    for rule in get_rules():
+        merchant = rule["merchant"]
 
-    return "Other"
+        if merchant is not None and merchant in desc:
+            print('in merchant rule ', merchant, ' category ', rule["category"])
+            return rule["category"]
+
+    return categorize_with_ai(desc)
+
+def categorize_with_ai(description):
+    try:
+        merchant, category = ai_classify(description)
+        print(f'categorize_with_ai  category {category}, merchant {merchant}')
+        merchant_collection.update_one(
+            {"merchant": merchant}, 
+            {"$set": {"category": category}}, 
+            upsert=True
+        )
+        if MERCHANT_RULES is not None:
+            MERCHANT_RULES.append({
+                "merchant": merchant,
+                "category": category
+            })
+
+        return category
+    except Exception as e:
+
+        print(f"AI categorization failed: {e}")
+
+        return "Other"
